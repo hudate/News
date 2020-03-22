@@ -66,14 +66,12 @@ class BDNews(Thread):
         soup = BeautifulSoup(content.text, 'html.parser')
         soup.find('')
 
-
     def get_plate_data(self):
         pool = []
         for menu_name, url in self.menu_dict.items():
             pool.append(Thread(target=self.__get_data, args=(url, menu_name)))
         [p.start() for p in pool]
         [p.join() for p in pool]
-
 
         pool = []
         for menu_name, content in self.plate_dict.items():
